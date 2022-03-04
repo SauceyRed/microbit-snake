@@ -12,6 +12,16 @@ function spawnItem() {
     console.log(`Plotted item at position (${itemPos[0]}, ${itemPos[1]})`);
 }
 
+function spawnPlayer() {
+    if (player.length == 1) {
+        led.plot(player.posX, player.posY);
+    } else {
+        for (let i = 0; i < player.length; i++) {
+            //
+        }
+    }
+}
+
 let itemPos: number[];
 let player = {
     posX: 2,
