@@ -1,17 +1,15 @@
-// function spawnItem() {
-// if (itemPos) {
-// destroyItem(itemPos[0], itemPos[1]);
-// }
-// const itemPosX: number = Math.floor(Math.random() * 5);
-// const itemPosY: number = Math.floor(Math.random() * 5);
-// led.plot(itemPosX, itemPosY);
-// itemPos = [itemPosX, itemPosY];
-// console.log(`Plotted item at position (${itemPos[0]}, ${itemPos[1]})`);
-// }
-
-function destroyItem () {
-    led.unplot(itemPos[0], itemPos[1])
-    console.log(`Unplotted item at position (${itemPos[0]}, ${itemPos[1]})`);
+function spawnItem() {
+    if (itemPos) {
+        console.log('Item exists');
+        led.unplot(itemPos[0], itemPos[1])
+        console.log(`Unplotted item at position (${itemPos[0]}, ${itemPos[1]})`);
+    }
+    console.log('Item does not exist');
+    const itemPosX: number = Math.floor(Math.random() * 5);
+    const itemPosY: number = Math.floor(Math.random() * 5);
+    led.plot(itemPosX, itemPosY);
+    itemPos = [itemPosX, itemPosY];
+    console.log(`Plotted item at position (${itemPos[0]}, ${itemPos[1]})`);
 }
 
 let itemPos: number[];
@@ -21,8 +19,18 @@ let player = {
     length: 1,
     direction: 'up',
 };
+
+spawnItem();
+console.log('Spawned first item');
 basic.forever(function () {
     while (true) {
+        if (player.posX == itemPos[0] && player.posY == itemPos[1]) {
+            console.log('Player on item position');
+            player.length += 1;
+            console.log('Player got 1 point');
+            spawnItem();
+            console.log(`Spawned item at position (${itemPos[0]}, ${itemPos[1]})`);
+        }
         led.plot(player.posX, player.posY)
         console.log(`Plotted player in position (${player.posX.toString()}, ${player.posY.toString()})`);
         const origPosX: number = player.posX;
